@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="ta"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>கரும்பு கணக்கு</title>
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);--bg:#f6f5ef;--fg:#1d2a1f;--card:#fff;--ac:#2e7d32;--mut:#6b7a6d;--bd:#dde3d8;--red:#c62828;--amb:#ef8f00}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#121a14;--fg:#e8efe8;--card:#1b261d;--ac:#66bb6a;--mut:#92a294;--bd:#2c3a2e;--red:#ef5350;--amb:#ffb74d}}
+:root[data-theme="dark"]{--bg:#121a14;--fg:#e8efe8;--card:#1b261d;--ac:#66bb6a;--mut:#92a294;--bd:#2c3a2e;--red:#ef5350;--amb:#ffb74d}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.4 system-ui,"Noto Sans Tamil","Latha",sans-serif}
+h1{font-size:19px;margin:0;padding:12px 14px 0;color:var(--ac)}
+h3,h4{margin:0 0 8px}h4{margin-top:14px;color:var(--mut)}
+#v{padding:10px 12px 90px}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:12px;margin-bottom:10px}
+.tap{cursor:pointer}.mut{color:var(--mut);font-size:14px}
+label{display:block;font-size:13px;color:var(--mut);margin:6px 0 2px}
+input,select,textarea{width:100%;box-sizing:border-box;min-height:44px;font-size:16px;padding:8px 10px;border:1px solid var(--bd);border-radius:8px;background:var(--bg);color:var(--fg)}
+textarea{min-height:80px}
+.g{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+button{font:inherit;border-radius:10px;min-height:44px;border:0;cursor:pointer}
+.pri{width:100%;background:var(--ac);color:#fff;margin-top:10px;font-weight:600}
+.del{width:100%;background:none;border:1px solid var(--red);color:var(--red);margin-top:16px}
+.sm{min-height:36px;padding:0 12px;background:none;border:1px solid var(--red);color:var(--red)}
+.r{display:grid;grid-template-columns:1fr auto 80px;gap:8px;align-items:center;padding:12px;margin-bottom:6px;background:var(--card);border:1px solid var(--bd);border-left:5px solid var(--ac);border-radius:10px}
+.r.a{border-left-color:var(--red);opacity:.65}.r.h{border-left-color:var(--amb)}
+.r b,.r2 b{text-align:right}
+.r2{display:flex;justify-content:space-between;gap:8px;padding:9px 4px;border-bottom:1px solid var(--bd)}
+.r2 span:first-child{flex:1}
+nav{position:fixed;left:0;right:0;bottom:0;display:flex;background:var(--card);border-top:1px solid var(--bd);padding-bottom:env(safe-area-inset-bottom,0px)}
+nav button{flex:1;background:none;color:var(--mut);border-radius:0;min-height:54px;font-size:14px}
+nav button.on{color:var(--ac);font-weight:700;box-shadow:inset 0 3px var(--ac)}
+#tt{position:fixed;left:50%;bottom:80px;transform:translateX(-50%);background:#222;color:#fff;padding:8px 14px;border-radius:20px;font-size:14px;display:none;z-index:9}
+.gw{overflow:auto;max-height:70vh;border:1px solid var(--bd);border-radius:10px;background:var(--card)}
+.gt{border-collapse:separate;border-spacing:0;font-size:14px}
+.gt td,.gt th{border-right:1px solid var(--bd);border-bottom:1px solid var(--bd);padding:0 4px;height:34px;box-sizing:border-box;text-align:center;background:var(--card);white-space:nowrap;min-width:92px;max-width:92px;overflow:hidden;text-overflow:ellipsis;font-weight:400}
+.gt th{position:sticky;z-index:3;background:var(--bg)}
+.gt .c0{position:sticky;left:0;min-width:44px;max-width:44px;z-index:2;font-weight:700;color:var(--ac)}
+.gt .c1{position:sticky;left:44px;min-width:120px;max-width:120px;text-align:left;z-index:2}
+.gt th.c0,.gt th.c1{z-index:4;color:var(--mut)}
+.gt .h0{top:0}.gt .h1{top:34px}.gt .h2{top:68px}.gt .h3{top:102px}.gt .h4{top:136px}
+.gt .sg,.gt .sp{background:var(--bg);color:var(--mut);font-weight:700;text-align:left}
+.gt .sg{position:sticky;left:0;z-index:2;min-width:164px;max-width:164px}
+.gt td.v{cursor:pointer}.gt td.a{background:rgba(239,83,80,.3)}.gt td.h{background:rgba(255,183,77,.35)}
+.gt select,.gt input{min-height:28px;height:28px;padding:0 2px;font-size:14px;border:0;background:transparent;text-align:center;width:100%}
+.gt .x{min-height:26px;height:26px;padding:0 4px;background:none;color:var(--red);flex:none}
+.chip{display:inline-block;padding:6px 12px;margin:3px 4px 8px 0;border:1px solid var(--bd);border-radius:16px;font-size:14px;cursor:pointer;background:var(--card)}
+.chip.on{background:var(--ac);color:#fff;border-color:var(--ac)}
+.ni{width:130px;text-align:right}
+.gr{display:grid;gap:4px;padding:8px 0;border-bottom:1px solid var(--bd);align-items:center}
+.gr b,.gr span{text-align:right}.gr span:first-child{text-align:left}
+.neg{color:var(--red)}
+.gt td.z{color:var(--mut)}
+.g2{display:flex;gap:8px;margin-top:6px}.g2 button{width:56px;background:var(--ac);color:#fff}
+nav{overflow-x:auto}nav button{flex:1 0 auto;padding:0 14px;font-size:13px}
+.gt .l0{left:0}
+.gt .sp{text-align:center}
+.gt .fm td,.gt .ff td{position:sticky;z-index:3;height:auto;white-space:normal;font-size:12px;line-height:1.25;padding:3px 4px;font-weight:600;color:var(--fg);vertical-align:top}
+.gt .fm .sg,.gt .ff .sg{z-index:4;left:0;font-size:14px;color:var(--mut);vertical-align:middle}
+.gt .sp b{display:block;color:var(--ac)}
+.gt td.neg{font-weight:700}
+.fr input{flex:1;min-width:0}.fr .ni{flex:none;width:100px}.fr button{flex:none}
+.sm2{width:44px;min-height:44px;background:var(--ac);color:#fff;flex:none}
+.wk{display:flex;align-items:center;justify-content:center;gap:2px}.wk span{overflow:hidden;text-overflow:ellipsis;min-width:0}
+.gt .gp{height:40px;background:var(--rose)}
+.gw.lc tr>:last-child{background:var(--hl)!important;font-weight:700}
+.gt tr.tot td{background:var(--hl);font-weight:700}
+:root{--rose:#f9cfe0}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--rose:#5c2c40}}
+:root[data-theme="dark"]{--rose:#5c2c40}
+.ck{display:flex;align-items:center;gap:8px;font-size:15px;color:var(--fg);margin:0 0 8px}.ck input{width:22px;min-height:22px;height:22px;flex:none}
+.gt tr.hl td:not(.h){background:var(--hl)}
+.gt input.hk{width:20px;min-height:20px;height:20px;accent-color:var(--ac)}
+:root{--hl:#d6ebff}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--hl:#23415f}}
+:root[data-theme="dark"]{--hl:#23415f}
+.ckg .h0{top:34px}.ckg .h1{top:68px}.ckg .h2{top:102px}.ckg .h3{top:136px}.ckg .h4{top:170px}
+.gt .hc{top:0}
+.gt th.sel{background:var(--hl)}
+.gt input.dk{width:22px;min-height:22px;height:22px;accent-color:var(--ac);vertical-align:middle}
+.ck2{display:flex;align-items:center;gap:4px;font-size:12px;font-weight:400;color:var(--mut);margin:0;white-space:nowrap}
+.gt th.hc.c0 .x{padding:0 2px;font-size:12px}
+.gt tr.wl td{white-space:normal;line-height:1.2;height:auto;padding-top:4px;padding-bottom:4px}
+.ghost{width:100%;background:none;border:1px solid var(--ac);color:var(--ac);margin-top:8px}
+input:disabled{opacity:.6}
+.mvb{min-height:0;padding:6px 4px;font-size:11px;background:var(--ac);color:#fff;border-radius:6px;white-space:nowrap}
+.gt th.nwcol{background:#fde68a;color:#78350f;padding-top:10px}.gt th.nwcol::after{content:'புதிது';position:absolute;left:0;right:0;top:0;font-size:9px;line-height:11px;font-weight:700;text-align:center}
+.edt{text-decoration:underline dotted;cursor:pointer}
+.kr{color:#dc2626}.kg{color:#16a34a}.gt input.kx{width:64px;min-width:0;padding:4px;font-size:13px;background:transparent;border:1px solid var(--bd)}
+.gt .gapc,.gt th.gapc,.gt td.gapc{min-width:22px;width:22px;padding:0;background:var(--rose);border:0}.tb{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:6px}.tb button{min-height:0;padding:6px 10px;font-size:13px}
+</style></head><body>
+<h1>🌾 கரும்பு கணக்கு</h1>
+<div id="v"></div>
+<div id="tt"></div>
+<nav>
+<button data-t="d" onclick="go('d')">நாட்கள்</button>
+<button data-t="e" onclick="go('e')">நாட்கள்1</button>
+<button data-t="a" onclick="go('a')">கணக்கு</button>
+<button data-t="w" onclick="go('w')">கூலி</button>
+<button data-t="v" onclick="go('v')">Adwance</button>
+<button data-t="m" onclick="go('m')">மொத்தம்</button>
+<button data-t="t" onclick="go('t')">Tally</button>
+<button data-t="h" onclick="go('h')">சேமித்தவை</button>
+<button data-t="p" onclick="go('p')">ஆட்கள்</button>
+</nav>
+<script>
+const K='karumbu1',$=s=>document.querySelector(s);
+const M="அற்புதரட்சகன்,ஆரோக்கியதாஸ்,மனுவேல்,டேவிட் (டைலர்),தங்கமணி,ஜோசப்,அந்தோணி,அம்புரோஸ்,தோமாஸ்,டேவிட்ராஜ்,பம்பாய்,பர்னபாஸ்,மரியசெல்வம்,பிரான்சிஸ்,அடைக்கலராஜ்,L.அந்தோனிராஜ்,ஜான்,லூர்து சாமி,இருதயராஜ்,செல்வம் (ஓடை),போஸ்கோ,செல்வம் (அப்பு),ராஜா,சைமன்,சார்லஸ்,A.அந்தோனிராஜ்,மார்டீன்,ஈசாக்".split(',');
+const F="செல்வி,புஷ்பா,ரபேக்கா,ஜான்சி,சோபியா,M.விக்டோரியா,சிலுவைமேரி,ஆரோக்கியமேரி,தனசீலி,ஜெயசீலி,அந்தோணியம்மாள்,SELVI,சிரியபுஷ்பம்,பாத்திமா,லீமா,ராணி,வாணரசி,அமலராணி,அன்னம்மாள்,நம்பிக்கை மேரி,I. விக்டோரியா".split(',');
+let S=null;
+try{S=JSON.parse(localStorage.getItem(K))}catch(e){}
+if(!S||!S.w)S={w:[...M.map((n,i)=>({id:'m'+i,n,g:'M'})),...F.map((n,i)=>({id:'f'+i,n,g:'F'}))],d:[],c:null};
+let IN=0;const save=()=>{if(IN)[S.d,S.n]=[S.n,S.d];try{localStorage.setItem(K,JSON.stringify(S))}catch(e){}if(IN)[S.d,S.n]=[S.n,S.d]};
+S.f=S.f||[{n:'சந்தியாகு',a:50000},{n:'அறிவழகன்',a:40000},{n:'சீனு',a:90000}];S.v=S.v||{};S.k=S.k||{};S.n=S.n||[];S.h=S.h||[];S.x=S.x||{};
+const ef=n=>{if(n&&!S.f.some(x=>x.n==n))S.f.push({n,a:0})};S.d.concat(S.n).forEach(d=>ef(d.farm));
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const fz=x=>Math.floor(x+1e-7);
+const rs=n=>(n<0?'−':'')+'₹'+fz(Math.abs(n)).toLocaleString('en-IN');
+const DN=['ஞாயிறு','திங்கள்','செவ்வாய்','புதன்','வியாழன்','வெள்ளி','சனி'];
+const dn=s=>DN[new Date(s+'T00:00').getDay()];
+const fd=s=>s.split('-').reverse().join('/');
+const today=()=>new Date(Date.now()-new Date().getTimezoneOffset()*6e4).toISOString().slice(0,10);
+const byDate=()=>[...S.d].reverse();
+const cur=()=>S.d.find(x=>x.id==S.c)||S.d[S.d.length-1];
+let tab='d',tm;
+function toast(t){const e=$('#tt');e.textContent=t;e.style.display='block';clearTimeout(tm);tm=setTimeout(()=>e.style.display='none',2200)}
+async function cp(t){try{await navigator.clipboard.writeText(t);toast('நகலெடுக்கப்பட்டது')}catch(e){const x=document.createElement('textarea');x.value=t;$('#v').appendChild(x);x.select();try{if(document.execCommand('copy')){toast('நகலெடுக்கப்பட்டது');return}}catch(_){}toast('தேர்ந்தெடுத்து நகலெடுக்கவும்')}}
+function go(t){if(t!=tab){SEL.clear();SO=0}tab=t;render()}
+function render(){document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('on',b.dataset.t==tab));({d:vd,e:vd,a:va,h:vh,w:vw,v:vv,m:vm,t:vt,p:vp})[tab]();scrollTo(0,0)}
+const wdSel=(id,v,ch)=>`<select${id?` id="${id}"`:''}${ch?` onchange="${ch}"`:''}>${DN.map(x=>`<option${x==v?' selected':''}>${x}</option>`).join('')}</select>`;
+const dsel=(d,fn)=>`<select onchange="S.c=+this.value;${fn}()">${byDate().map(x=>`<option value="${x.id}"${x.id==d.id?' selected':''}>${esc(x.farm)} · நாள் ${x.no??''}</option>`).join('')}</select>`;
+const sorted=()=>[...S.d];
+const lab=v=>v==1?'p':v==0?'a':v.toFixed(2),cls=v=>v==1?'':v==0?'a':'h';
+const SEL=new Set();let SO=0;const selDays=()=>SEL.size?S.d.filter(d=>SEL.has(d.id)):S.d;const vsorted=()=>sorted().filter(d=>!(SO&&SEL.size)||SEL.has(d.id));
+const tt=id=>+selDays().reduce((n,d)=>n+(d.a[id]??0),0).toFixed(2);
+const sv=id=>(S.v[id]||[]).reduce((a,b)=>a+b,0);
+const wtot=()=>{const T={};S.w.forEach(w=>T[w.id]=0);S.d.forEach(d=>{const c=calc(d);S.w.forEach(w=>T[w.id]+=c.per[w.id])});return T};
+const cwf=d=>d.cm=='p'?(v=>v>0?v:0):d.cm=='f'?(v=>v>0?1:0):(v=>v>0?(v==0.5?0.5:1):0);
+function calc(d){let m=0,f=0,pm=0,pf=0,np=0,nf=0;const cw=cwf(d);
+S.w.forEach(w=>{const v=d.a[w.id]??0;if(w.g=='M'){m+=v;pm+=cw(v);if(v>0)np++}else{f+=v;pf+=cw(v);if(v>0)nf++}});
+m=+m.toFixed(2);f=+f.toFixed(2);
+const M=pm,F=pf,gross=d.ton*d.rate,net=gross-d.tata-d.oth,U=M+F/2,base=U>0?fz(net/U):0,wb=base/2;
+let paid=0;const per={};
+S.w.forEach(w=>{const x=fz((d.a[w.id]??0)*(w.g=='M'?base:wb));per[w.id]=x;paid+=x});
+const L=net-paid,P=pm+pf/2,e=P>0?Math.max(0,fz(L/P)):0,ew=fz(e/2);
+S.w.forEach(w=>{const v=d.a[w.id]??0;if(v>0)per[w.id]+=fz(cw(v)*(w.g=='M'?e:ew))});
+const rem=net-Object.values(per).reduce((a,b)=>a+b,0);
+return{rem,pm,pf,np,nf,m,f,M,F,gross,net,base,wb,L,e,ew,per}}
+const lst=(d,g)=>S.w.filter(w=>w.g==g).map(w=>d.a[w.id]??0).filter(x=>x>0);
+const sumc=(g,d)=>{const v=lst(d,g),p=v.filter(x=>x==1).length;return`${[p?'P×'+p:'',...v.filter(x=>x!=1).map(x=>x.toFixed(2))].filter(Boolean).join(', ')}<b>=${+v.reduce((a,x)=>a+cwf(d)(x),0).toFixed(2)}</b>`};
+const tbl=(hd,rows,lc)=>`<div class="gw${lc?' lc':''}" style="margin-bottom:12px"><table class="gt"><thead><tr><th class="h0 c1 l0"></th>${hd.map(h=>`<th class="h0">${h}</th>`).join('')}</tr></thead><tbody>${rows.map(r=>r==='gap'?`<tr><td class="gp c1 l0"></td>${hd.map(()=>'<td class="gp"></td>').join('')}</tr>`:`<tr${r.k?` class="${r.k}"`:''}><td class="c1 l0">${r[0]}</td>${r.slice(1).map(x=>Array.isArray(x)?`<td class="${x[1]}">${x[0]}</td>`:`<td>${x}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`;
+function grid(ds,cell,tot,ex,lo,del,sep,fz,rc,ck){
+const EL=(d,t)=>tab=='d'?`<span class="edt" onclick="ed(${d.id})">${t}</span>`:t;
+const G=(d,t)=>ck&&d.gap?(t||'<td class="gapc"></td>'):'';
+const hr=(n,l,f)=>`<tr><th class="h${n} c0"></th><th class="h${n} c1">${l}</th>${ds.map((d,i)=>`<th class="h${n}${ck&&SEL.has(d.id)?' sel':''}" data-d="${d.id}">${f(d,i)}</th>`+G(d,`<th class="h${n} gapc"></th>`)).join('')}</tr>`;
+const sd=d=>{const[y,m,x]=d.date.split('-');return`${x}-${m}-${y.slice(2)}`};
+const nh=(lo?5:4)+(ck?1:0);
+const ckr=ck?`<tr><th class="hc c0"><button class="x" id="sx" onclick="sclr()"${SEL.size?'':' style="display:none"'}>${SEL.size}✕</button></th><th class="hc c1">${tab=='d'?'<button class="mvb" onclick="mv()">→ நாட்கள்1</button>':'<button class="mvb" onclick="bk()">← நாட்கள்</button>'}</th>${ds.map(d=>`<th class="hc${SEL.has(d.id)?' sel':''}${d.nw?' nwcol':''}" data-d="${d.id}"><input type="checkbox" class="dk" ${SEL.has(d.id)?'checked':''} onchange="sk(${d.id},this)"></th>`+G(d,'<th class="hc gapc"></th>')).join('')}</tr>`:'';
+const sr=g=>{const m=g=='M',st=fz?(m?`style="top:${nh*34}px"`:'style="bottom:0"'):'';return`<tr class="${fz?(m?'fm':'ff'):''}"><td class="sg" colspan="2" ${st}>${m?'ஆண்':'பெண்'}</td>${ds.map(d=>`<td class="sp" id="s${g}${d.id}" ${st}>${sep(g,d)}</td>`+G(d)).join('')}</tr>`};
+const rw=g=>S.w.filter(w=>w.g==g).map(w=>`<tr${rc?` class="${rc(w)}"`:''}><td class="c0" id="t${w.id}">${tot(w)}</td><td class="c1">${esc(w.n)}</td>${ds.map(d=>cell(w,d)+G(d)).join('')}</tr>`).join('');
+const gp=`<tr><td class="gp c0"></td><td class="gp c1"></td>${ds.map(d=>'<td class="gp"></td>'+G(d)).join('')}</tr>`;
+const body=(fz?sr('M')+rw('M')+gp+rw('F')+sr('F'):sr('M')+rw('M')+gp+sr('F')+rw('F'))+(ex||'');
+return`<div class="gw" id="gw"><table class="gt${ck?' ckg':''}"><thead>${ckr}${hr(0,'கிழமை',d=>`<div class="wk"><span>${d.lk?'🔒':''}${d.wd||dn(d.date)}</span>${del?`<button class="x" onclick="rd(${d.id},this)">✕</button>`:''}</div>`)}${hr(1,'தோட்டம்',d=>EL(d,esc(d.farm)))}${hr(2,'தேதி',d=>EL(d,sd(d)))}${hr(3,'நாள்',(d,i)=>EL(d,d.no??i+1))}${lo?hr(4,'லோடு',d=>`<input type="number" inputmode="decimal" step="any" value="${d.load}" oninput="eh(${d.id},'load',this.value)">`):''}</thead><tbody>${body}</tbody></table></div>`}
+const goR=()=>{const g=$('#gw');if(g)g.scrollLeft=g.scrollWidth};
+function dsum(c){const d=cur(),r=(l,v)=>`<div class="r2"><span>${l}</span><b>${v}</b></div>`,ls=g=>{const v=lst(d,g);return`<div class="r2"><span>${g=='M'?'ஆண்':'பெண்'}</span><b>${+v.reduce((a,b)=>a+b,0).toFixed(2)} – ${g=='M'?c.pm:c.pf}</b></div><div class="mut" style="margin-bottom:6px;word-break:break-word">${v.map(x=>x==1?'P':x.toFixed(2)).join(',')}</div>`};
+return`<div class="g"><div>மொத்தம்<br><b>${rs(c.gross)}</b></div><div>செலவு கழித்து<br><b>${rs(c.net)}</b></div></div>${ls('M')}${ls('F')}${r('ஆண்/பெண் பாதி',c.pm+' + '+(c.pf/2)+' = '+(+(c.pm+c.pf/2).toFixed(2)))}${r('ஒரு ஆண் / பெண்',rs(c.base)+' / '+rs(c.wb))}${r('மீதமுள்ள பணம்',rs(c.L))}${r('அதில் ஆணுக்கு / பெண்ணுக்கு',rs(c.e)+' / '+rs(c.ew))}${r('முழு நாள் ஆண் / பெண்',rs(c.base+c.e)+' / '+rs(c.wb+c.ew))}`}
+function vv(){$('#v').innerHTML=`<div class="card">${S.f.map((x,i)=>`<div class="r2 fr"><input value="${esc(x.n)}" onchange="fn(${i},this.value)"><input class="ni" type="number" inputmode="decimal" value="${x.a}" oninput="fa(${i},this.value)"><button class="sm" onclick="fdl(${i},this)">✕</button></div>`).join('')}<div class="r2 fr"><input id="nfn" placeholder="புதிய தோட்டம்"><input id="nfa" class="ni" type="number" inputmode="decimal" placeholder="தொகை"><button class="sm2" onclick="fad()">+</button></div><div class="r2"><b>மொத்தம்</b><b id="at"></b></div><div class="r2"><span>கொடுத்தது</span><b id="ag"></b></div><div class="r2"><span>இருப்பு</span><b id="ab"></b></div></div>`+acard('tr','போக்குவரத்து (Tata Ace)')+S.w.map(w=>acard(w.id,w.n)).join('');av()}
+const acard=(id,n)=>`<div class="card"><div class="r2"><b>${esc(n)}</b><b id="wt${id}">${rs(sv(id))}</b></div><div id="ch${id}">${chips(id)}</div><div class="g2"><input id="in${id}" type="number" inputmode="decimal" placeholder="தொகை"><button onclick="ad('${id}')">+</button></div></div>`;
+function fn(i,v){v=v.trim();const o=S.f[i].n;if(!v||(v!=o&&S.f.some(x=>x.n==v))){toast('பெயர் தவறு அல்லது ஏற்கனவே உள்ளது');return vv()}S.d.forEach(d=>{if(d.farm==o)d.farm=v});S.f[i].n=v;save();toast('மாற்றப்பட்டது')}
+function fdl(i,b){const n=S.f[i].n;if(S.d.some(d=>d.farm==n))return toast('இந்த தோட்டத்தில் நாட்கள் பதிவாகி உள்ளன');
+if(b.dataset.s!='1'){b.dataset.s='1';b.textContent='?';setTimeout(()=>{b.dataset.s='';b.textContent='✕'},3000);return}S.f.splice(i,1);save();vv()}
+function fad(){const n=$('#nfn').value.trim();if(!n||S.f.some(x=>x.n==n))return toast('பெயர் தவறு அல்லது ஏற்கனவே உள்ளது');S.f.push({n,a:parseFloat($('#nfa').value)||0});save();vv()}
+function mt(){const W=wtot();let tw=0,ta=0,nn=0;
+S.w.forEach(w=>{const t=W[w.id],a=sv(w.id);tw+=t;ta+=a;nn+=Math.min(0,t-a)});
+const Et=S.d.reduce((a,d)=>a+d.tata,0),Eo=S.d.reduce((a,d)=>a+d.oth,0),Ea=sv('tr'),Ex=Et+Eo;nn+=Math.min(0,Et-Ea);
+return{W,tw,ta,nn,Et,Eo,Ex,Ea,c1:tw+Ex,c2:ta+Ea,c3:tw+Ex-ta-Ea}}
+const xmap=()=>{const M=mt(),W=M.W,o={};S.w.forEach(w=>o[w.id]=W[w.id]-sv(w.id));o.tr=M.Et-M.Ea;o.ot=M.Eo;return o};
+const xv=k=>S.x[k]||{k:0,s:0};
+const xtot=()=>{const m=xmap();let K=0,Sa=0,T=0;Object.keys(m).forEach(k=>{const x=xv(k);K+=x.k||0;Sa+=x.s||0;T+=m[k]-(x.k||0)+(x.s||0)});return{K,S:Sa,T}};
+function xvs(f,b){S.xv=S.xv||{};S.xv[f]=b.checked?1:0;save();const y=window.scrollY||0,xs0=[...document.querySelectorAll('.gw')].map(g=>g.scrollLeft);vm();document.querySelectorAll('.gw').forEach((g,i)=>g.scrollLeft=xs0[i]||0);scrollTo(0,y)}
+function xs(k,f,v){const x=S.x[k]=S.x[k]||{k:0,s:0};x[f]=parseFloat(v)||0;save();const m=xmap(),t=$('#xt_'+k);if(t){const n=m[k]-x.k+x.s;t.textContent=rs(n);t.className=n<0?'neg':''}const T=xtot(),a=$('#xK'),b=$('#xS'),c=$('#xT');if(a)a.textContent=rs(T.K);if(b)b.textContent=rs(T.S);if(c){c.textContent=rs(T.T);c.className=T.T<0?'neg':''}}
+function vm(sn){const M=mt(),W=M.W,cs=S.d.map(d=>[d,calc(d)]);
+const F=S.f.map(f=>{const x=cs.filter(([d])=>d.farm==f.n),ton=x.reduce((s,[d])=>s+d.ton,0),g=x.reduce((s,[,c])=>s+c.gross,0);return{ton:+ton.toFixed(3),rate:ton?fz(g/ton):0,g,a:f.a,r:g-f.a}});
+const sm=k=>F.reduce((s,f)=>s+f[k],0),ng=v=>[rs(v),v<0?'neg':''];
+const t1=tbl([...S.f.map(f=>esc(f.n)),'மொத்தம் கூட்டி'],[['டன்',...F.map(f=>f.ton),+sm('ton').toFixed(3)],['Rate',...F.map(f=>f.rate),''],['மொத்தம்',...F.map(f=>rs(f.g)),rs(sm('g'))],['Adwance',...F.map(f=>rs(f.a)),rs(sm('a'))],['Adwance போக',...F.map(f=>ng(f.r)),ng(sm('r'))]],1);
+const Et=M.Et,Eo=M.Eo,Ea=M.Ea;
+const XM=xmap(),XV=S.xv||{},xc=(k,sn)=>{const x=xv(k),n=XM[k]-(x.k||0)+(x.s||0),vk=sn||XV.k,vs=sn||XV.s;return[vk?(sn?`<span class="kr">${x.k?rs(x.k):''}</span>`:`<input class="kx kr" type="number" inputmode="decimal" value="${x.k||''}" oninput="xs('${k}','k',this.value)">`):'',vs?(sn?`<span class="kg">${x.s?rs(x.s):''}</span>`:`<input class="kx kg" type="number" inputmode="decimal" value="${x.s||''}" oninput="xs('${k}','s',this.value)">`):'',[`<span id="xt_${k}">${rs(n)}</span>`,n<0?'neg':'']]};
+const rf2=w=>{const t=W[w.id],a=sv(w.id);return[esc(w.n),rs(t),rs(a),ng(t-a),...xc(w.id,sn)]};
+const rows=[...S.w.filter(w=>w.g=='M').map(rf2),'gap',...S.w.filter(w=>w.g=='F').map(rf2),['போக்குவரத்து',rs(Et),rs(Ea),ng(Et-Ea),...xc('tr',sn)],['இதர செலவு',rs(Eo),'',ng(Eo),...xc('ot',sn)]];
+const XT=xtot(),tr=['கூட்டு',rs(M.c1),rs(M.c2),ng(M.c3),(sn||XV.k)?`<b class="kr" id="xK">${rs(XT.K)}</b>`:'',(sn||XV.s)?`<b class="kg" id="xS">${rs(XT.S)}</b>`:'',[`<span id="xT">${rs(XT.T)}</span>`,XT.T<0?'neg':'']];tr.k='tot';
+const gt=['−Adwance (கையில் வராதது)','','',ng(M.nn),'','',''];
+const h=t1+tbl(['மொத்தம்','Adwance','மீதம்',sn?'<span class="kr">கழி</span>':`<label class="kr"><input type="checkbox" class="dk" ${XV.k?'checked':''} onchange="xvs('k',this)"> கழி</label>`,sn?'<span class="kg">சேர்</span>':`<label class="kg"><input type="checkbox" class="dk" ${XV.s?'checked':''} onchange="xvs('s',this)"> சேர்</label>`,'மொத்தம்'],[...rows,tr,gt]);if(sn)return h;$('#v').innerHTML=h+(S.d.length?'<button class="pri" onclick="msv(this)">மொத்தம் சேமி (நாட்கள்1 அழியும்)</button>':'')}
+function vt(){const M=mt(),W=wtot(),T=S.d.reduce((s,d)=>s+calc(d).gross,0),E=S.d.reduce((s,d)=>s+d.tata+d.oth,0);
+let Wm=0,Wf=0,A=0,N=0,R=0;S.w.forEach(w=>{const t=W[w.id],a=sv(w.id);w.g=='M'?Wm+=t:Wf+=t;A+=a;N+=Math.min(0,t-a);R+=Math.min(a,Math.max(t,0))});
+const r=(l,v,c)=>`<div class="r2"><span>${l}</span><b class="${c||''}">${rs(v)}</b></div>`;
+const RM=sorted().map(d=>[d,calc(d).rem]),RT=RM.reduce((a,[,x])=>a+x,0);
+$('#v').innerHTML=`<div class="card">${r('<b>பிரிக்க முடியாத மீதம் (மொத்தம்)</b>',RT)}<div class="mut">ஒவ்வொரு நாளும் ஆட்களுக்கு பிரித்த பிறகு மீதமுள்ள சிறு தொகை</div></div><div class="card">${r('மொத்தம்',T)}${r('ஆண்கள் கூலி',Wm)}${r('பெண்கள் கூலி',Wf)}${r('செலவு (போக்குவரத்து + இதர)',E)}</div><div class="card">${r('ஆட்களுக்கு பிரிந்த மொத்தம்',M.c1)}${r('ஆட்களுக்கு கொடுத்த Adwance',M.c2)}${r('ஆட்களுக்கு கொடுக்க வேண்டிய தொகை',M.c3)}${r('கையில் வராத Adwance',M.nn,'neg')}</div>`+(()=>{const X=xtot();return`<div class="card"><b>கழி / சேர் Tally (தனி — மேலே உள்ளவற்றில் சேராது)</b>${r('கழி',X.K,'kr')}${r('சேர்',X.S,'kg')}${r('மொத்தம்',X.T,X.T<0?'neg':'')}</div>`})()}
+let BR=0;
+function sb(x){BR=x;document.querySelectorAll('.chip').forEach(c=>c.classList.toggle('on',c.dataset.b==x))}
+function vd(){const ds=sorted(),t=today(),last=S.d[S.d.length-1],nx=Math.max(0,...S.d.map(d=>+d.no||0))+1;
+let h=tab!='d'?'':`<div class="card"><h3>புதிய நாள்</h3><div class="g"><div><label>நாள்</label><input id="nu" type="number" inputmode="numeric" value="${nx}"></div><div><label>லோடு</label><input id="ld" type="number" inputmode="decimal" step="any" value="1"></div></div><label>தோட்டம்</label><input id="fm" list="fl" value="${esc(last?last.farm:'')}"><datalist id="fl">${S.f.map(f=>`<option value="${esc(f.n)}">`).join('')}</datalist><div class="g"><div><label>தேதி</label><input id="dt" type="date" value="${t}" onchange="this.value&&($('#wk').value=dn(this.value))"></div><div><label>கிழமை</label>${wdSel('wk',dn(t))}</div></div><label>இடம் (எந்த நாளுக்கு பின் சேர்க்க)</label><select id="ps"><option value="">கடைசியில்</option>${S.d.map(d=>`<option value="${d.id}">${esc(d.farm)} · நாள் ${d.no??''} க்கு பின்</option>`).join('')}</select><button class="pri" onclick="addDay()">நாள் சேர்க்க</button></div>`;
+h+='<div id="ed"></div><div id="ga"></div>';$('#v').innerHTML=h;BR=0;rg()}
+function rg(keep){const ds=vsorted(),e=$('#ga');if(!e)return;const g0=$('#gw'),sl=g0?g0.scrollLeft:0;
+e.innerHTML=!S.d.length?'<p class="mut">இன்னும் நாட்கள் இல்லை</p>':`<div class="tb"><button onclick="lkSel()">🔒 பூட்டு / திற</button><button onclick="gapSel()">▯ இடைவெளி</button><span class="mut">நாளை ☑ தேர்வு செய்து தட்டவும்</span></div><p class="mut">தட்டினால் மாறும் மதிப்பு:</p><div>${['p/a',...[0.75,0.5,0.33,0.66,0.25,0.15]].map((x,i)=>`<span class="chip${(i?x:0)==BR?' on':''}" data-b="${i?x:0}" onclick="sb(${i?x:0})">${i?x.toFixed(2):x}</span>`).join('')}</div>`+grid(ds,(w,d)=>{const v=d.a[w.id]??0;return`<td id="c${w.id}_${d.id}" class="v ${cls(v)}" onclick="tg('${w.id}',${d.id})">${lab(v)}</td>`},w=>tt(w.id),'',1,1,sumc,1,null,1);const ps=$('#ps');if(ps){const v=ps.value;ps.innerHTML='<option value="">கடைசியில்</option>'+S.d.map(d=>`<option value="${d.id}">${esc(d.farm)} · நாள் ${d.no??''} க்கு பின்</option>`).join('');ps.value=v}if(keep){const g=$('#gw');if(g)g.scrollLeft=sl}else goR()}
+function selD(){if(!SEL.size){toast('முதலில் நாட்களை ☑ தேர்வு செய்யவும்');return null}return S.d.filter(d=>SEL.has(d.id))}
+function lkSel(){const L=selD();if(!L)return;const a=L.every(d=>d.lk);L.forEach(d=>d.lk=a?0:1);toast(a?'திறக்கப்பட்டது':'🔒 பூட்டப்பட்டது');SEL.clear();save();rg(1)}
+function gapSel(){const L=selD();if(!L)return;const a=L.every(d=>d.gap);L.forEach(d=>d.gap=a?0:1);toast(a?'இடைவெளி நீக்கப்பட்டது':'இடைவெளி சேர்க்கப்பட்டது (தேர்வான நாளுக்கு பின்)');SEL.clear();save();rg(1)}
+function sk(id,b){b.checked?SEL.add(id):SEL.delete(id);if(SO)return rg(1);ssync()}
+function ssync(){document.querySelectorAll('th[data-d]').forEach(t=>t.classList.toggle('sel',SEL.has(+t.dataset.d)));const x=$('#sx');if(x){x.style.display=SEL.size?'':'none';x.textContent=SEL.size+'✕'}S.w.forEach(w=>{const e=$('#t'+w.id);if(e)e.textContent=tt(w.id)})}
+function sclr(){SEL.clear();rg(1)}
+function sonly(b){SO=b.checked?1:0;rg(1)}
+function ed(id){const d=S.d.find(x=>x.id==id);if(!d)return;if(d.lk)return toast('🔒 இந்த நாள் பூட்டப்பட்டுள்ளது (திறக்க: தேர்வு செய்து 🔒 தட்டவும்)');
+$('#ed').innerHTML=`<div class="card"><h3>நாளை திருத்து</h3><label>தோட்டம்</label><input id="efm" list="fl2" value="${esc(d.farm)}"><datalist id="fl2">${S.f.map(f=>`<option value="${esc(f.n)}">`).join('')}</datalist><div class="g"><div><label>தேதி</label><input id="edt" type="date" value="${d.date}" onchange="this.value&&($('#ewk').value=dn(this.value))"></div><div><label>கிழமை</label>${wdSel('ewk',d.wd||dn(d.date))}</div></div><label>நாள்</label><input id="eno" type="number" inputmode="numeric" value="${d.no??''}"><button class="pri" onclick="edsv(${id})">சேமி</button><button class="ghost" onclick="$('#ed').innerHTML=''">ரத்து</button></div>`;scrollTo(0,0)}
+function edsv(id){const d=S.d.find(x=>x.id==id),f=$('#efm').value.trim(),dt=$('#edt').value;if(!d||!f||!dt)return toast('தோட்டம், தேதி கொடுக்கவும்');
+d.farm=f;d.date=dt;d.wd=$('#ewk').value;d.no=parseFloat($('#eno').value)||0;ef(f);unnw(d);save();toast('திருத்தப்பட்டது');vd()}
+function unnw(d){if(d.nw){d.nw=0;document.querySelectorAll('th[data-d="'+d.id+'"]').forEach(t=>t.classList.remove('nwcol'))}}
+function hk(id,b){S.k[id]=b.checked?1:0;save();b.closest('tr').classList.toggle('hl',b.checked)}
+function eh(i,k,v){const d=S.d.find(x=>x.id==i);if(d.lk)return toast('🔒 இந்த நாள் பூட்டப்பட்டுள்ளது');d[k]=parseFloat(v)||0;unnw(d);save()}
+function rd(i,b){const d0=S.d.find(x=>x.id==i);if(d0&&d0.lk)return toast('🔒 இந்த நாள் பூட்டப்பட்டுள்ளது');if(b.dataset.s!='1'){b.dataset.s='1';b.textContent='?';setTimeout(()=>{b.dataset.s='';b.textContent='✕'},3000);return}
+S.d=S.d.filter(x=>x.id!=i);SEL.delete(i);if(S.c==i)S.c=null;save();rg(1)}
+function tg(w,i){const d=S.d.find(x=>x.id==i);if(d.lk)return toast('🔒 இந்த நாள் பூட்டப்பட்டுள்ளது');const o=d.a[w]??0;d.a[w]=BR?(o==BR?1:BR):(o==1?0:1);unnw(d);save();const v=d.a[w],e=$('#c'+w+'_'+i);e.className='v '+cls(v);e.textContent=lab(v);$('#t'+w).textContent=tt(w);['M','F'].forEach(g=>{const x=$('#s'+g+i);if(x)x.innerHTML=sumc(g,d)})}
+function addDay(){const f=$('#fm').value.trim(),dt=$('#dt').value;if(!f||!dt)return toast('தோட்டம், தேதி கொடுக்கவும்');
+const l=S.d[S.d.length-1]||{},d={id:Date.now(),farm:f,date:dt,wd:$('#wk').value,no:parseFloat($('#nu').value)||0,load:parseFloat($('#ld').value)||0,ton:0,rate:0,tata:0,oth:0,a:{},nw:1};
+ef(f);S.w.forEach(w=>d.a[w.id]=1);const ps=$('#ps').value,ix=ps?S.d.findIndex(x=>x.id==ps):-1;ix>=0?S.d.splice(ix+1,0,d):S.d.push(d);S.c=d.id;save();go('d')}
+function va(){const d=cur();if(!d){$('#v').innerHTML='<p class="mut">முதலில் "நாட்கள்" பக்கத்தில் ஒரு நாள் சேர்க்கவும்</p>';return}
+S.c=d.id;
+$('#v').innerHTML=`${dsel(d,'va')}<div class="card" style="margin-top:10px"><div class="g">${[['ton','டன்'],['rate','ரேட்'],['tata','போக்குவரத்து (Tata Ace)'],['oth','இதர செலவு']].map(([k,l])=>`<div><label>${l}</label><input type="number" inputmode="decimal" step="any" value="${d[k]}" oninput="up('${k}',this.value)"></div>`).join('')}</div></div><div id="sm" class="card"></div><div class="card"><b>சதவீத (0.75, 0.50…) கணக்கு முறை</b><div id="cmc">${cmh(d)}</div><button class="ghost" onclick="cmall()">இந்த முறையை எல்லா நாட்களுக்கும் வை</button></div>`;paint()}
+const CM=[['','பழையது'],['p','% சதவீதம்'],['f','முழு ஆள்']];
+const cmh=d=>CM.map(([k,l])=>`<span class="chip${(d.cm||'')==k?' on':''}" onclick="cmset('${k}')">${l}</span>`).join('')+'<div class="mut" style="margin-top:6px">'+({'':'பழையது: 0.50 மட்டும் பாதியாக எண்ணப்படும்; 0.75, 0.33… முழு ஆளாக எண்ணப்படும்','p':'% சதவீதம்: ஒவ்வொருவரும் தன் சதவீதம் அளவுக்கே எண்ணப்படுவர் (0.50 = பாதி, 0.75 = முக்கால்)','f':'முழு ஆள்: எந்த சதவீதமும் முழு ஆளாக எண்ணப்பட்டு, மீதமுள்ள பங்கு எல்லோருக்கும் பிரிக்கப்படும்'}[d.cm||''])+'</div>';
+function cmset(k){const d=cur();d.cm=k||'';save();$('#cmc').innerHTML=cmh(d);paint()}
+function cmall(){const d=cur();S.d.forEach(x=>x.cm=d.cm||'');save();toast('எல்லா நாட்களுக்கும் வைக்கப்பட்டது')}
+function up(k,v){const d=cur();d[k]=parseFloat(v)||0;save();paint()}
+function paint(){const s=$('#sm');if(s)s.innerHTML=dsum(calc(cur()))}
+function mv(){if(!SEL.size)return toast('முதலில் நாட்களை தேர்வு செய்யவும்');const m=S.n.filter(d=>SEL.has(d.id));S.n=S.n.filter(d=>!SEL.has(d.id));m.forEach(d=>d.nw=0);S.d.push(...m);SEL.clear();save();toast(m.length+' நாள் நாட்கள்1க்கு மாற்றப்பட்டது');vd()}
+function bk(){if(!SEL.size)return toast('முதலில் நாட்களை தேர்வு செய்யவும்');const m=S.d.filter(d=>SEL.has(d.id));S.d=S.d.filter(d=>!SEL.has(d.id));S.n.push(...m);SEL.clear();save();toast(m.length+' நாள் நாட்கள் பக்கத்துக்கு திரும்பியது');vd()}
+function msv(b){if(b.dataset.s!='1'){b.dataset.s='1';b.textContent='உறுதி? தட்டினால் சேமித்து நாட்கள்1 அழியும்';return}
+const ds=sorted(),fm=[...new Set(ds.map(d=>d.farm))].join(', ');
+S.h.unshift({id:Date.now(),at:today(),t:fm+' · '+ds.length+' நாள்',html:vm(1)});
+S.d=[];S.v={};S.k={};S.x={};S.f.forEach(f=>f.a=0);S.c=null;SEL.clear();save();toast('சேமிக்கப்பட்டது');go('h')}
+function vh(){if(!S.h.length){$('#v').innerHTML='<p class="mut">சேமித்த கணக்குகள் இல்லை. "மொத்தம்" பக்கத்தில் கீழே சேமிக்கலாம்.</p>';return}
+$('#v').innerHTML=S.h.map(h=>`<div class="card"><div class="r2"><b>${esc(h.t)}</b><span class="mut">${fd(h.at)}</span></div><div id="hb${h.id}" style="display:none;overflow-x:auto;margin-top:8px">${h.html}</div><button class="ghost" onclick="ho(${h.id},this)">பார்க்க</button><button class="ghost" onclick="hdl(${h.id},this)">நீக்கு</button></div>`).join('')}
+function ho(id,b){const e=$('#hb'+id),o=e.style.display=='none';e.style.display=o?'block':'none';b.textContent=o?'மூடு':'பார்க்க'}
+function hdl(id,b){if(b.dataset.s!='1'){b.dataset.s='1';b.textContent='உறுதி?';setTimeout(()=>{b.dataset.s='';b.textContent='நீக்கு'},3000);return}S.h=S.h.filter(x=>x.id!=id);save();vh()}
+function vw(){const ds=sorted();if(!ds.length){$('#v').innerHTML='<p class="mut">இன்னும் நாட்கள் இல்லை</p>';return}
+const cs=ds.map(calc),cm=new Map(ds.map((d,i)=>[d.id,cs[i]])),tw=w=>cs.reduce((s,c)=>s+c.per[w.id],0);
+const xr=(l,k)=>`<tr><td class="c0">${fz(ds.reduce((s,d)=>s+d[k],0))}</td><td class="c1">${l}</td>${ds.map(d=>`<td>${d[k]}</td>`).join('')}</tr>`;
+$('#v').innerHTML=grid(ds,(w,d)=>{const x=cm.get(d.id).per[w.id],v=d.a[w.id]??0;return`<td class="${x?(v<1?'h':''):'z'}">${x||'-'}</td>`},w=>`<input type="checkbox" class="hk" ${S.k[w.id]?'checked':''} onchange="hk('${w.id}',this)">`,xr('போக்குவரத்து','tata')+xr('இதர செலவு','oth'),0,0,(g,d)=>'('+cm.get(d.id)[g=='M'?'pm':'pf']+')',0,w=>S.k[w.id]?'hl':'')+`<button class="pri" onclick="cp('${'பெயர்\\tகூலி\\n'}'+window.TX)">நகலெடு</button>`;
+window.TX=S.w.map(w=>w.n+'\t'+tw(w)).join('\n');goR()}
+function av(){const t=S.f.reduce((s,x)=>s+(+x.a||0),0),g=S.w.reduce((s,w)=>s+sv(w.id),0)+sv('tr'),b=t-g,e=$('#ab');$('#at').textContent=rs(t);$('#ag').textContent=rs(g);e.textContent=rs(b);e.className=b<0?'neg':''}
+const chips=id=>(S.v[id]||[]).map((x,i)=>`<span class="chip" onclick="dv('${id}',${i},this)">${x}</span>`).join('');
+function rf(id){$('#ch'+id).innerHTML=chips(id);$('#wt'+id).textContent=rs(sv(id));av()}
+function fa(i,v){S.f[i].a=parseFloat(v)||0;save();av()}
+function ad(id){const e=$('#in'+id),v=parseFloat(e.value);if(!v)return;(S.v[id]=S.v[id]||[]).push(v);e.value='';save();rf(id)}
+function dv(id,i,b){if(b.dataset.s!='1'){b.dataset.s='1';b.textContent='✕ '+b.textContent;setTimeout(()=>{b.dataset.s='';b.textContent=S.v[id][i]??''},3000);return}S.v[id].splice(i,1);save();rf(id)}
+function vp(){$('#v').innerHTML=`<div class="card"><h3>புதிய நபர்</h3><input id="nn" placeholder="பெயர்"><label>வகை</label><select id="ng"><option value="M">ஆண்</option><option value="F">பெண்</option></select><button class="pri" onclick="aw()">சேர்க்க</button></div>`+
+S.w.map(w=>`<div class="r2"><span>${esc(w.n)} (${w.g=='M'?'ஆண்':'பெண்'})</span><button class="sm" onclick="rw('${w.id}',this)">நீக்கு</button></div>`).join('')+
+`<div class="card" style="margin-top:14px"><h3>காப்புப்பிரதி</h3><button class="pri" onclick="cp(JSON.stringify(S))">தரவை நகலெடு</button><label>மீட்டெடுக்க இங்கு ஒட்டவும்</label><textarea id="bk"></textarea><button class="pri" onclick="rst()">மீட்டெடு</button></div>`}
+function aw(){const n=$('#nn').value.trim();if(!n)return toast('பெயர் கொடுக்கவும்');
+const id='w'+Date.now();S.w.push({id,n,g:$('#ng').value});S.d.concat(S.n).forEach(d=>d.a[id]=0);save();vp()}
+function rw(id,b){if(b.dataset.s!='1'){b.dataset.s='1';b.textContent='உறுதி?';return}S.w=S.w.filter(w=>w.id!=id);save();vp()}
+function rst(){try{const o=JSON.parse($('#bk').value);if(!o.w||!o.d)throw 0;S=o;S.n=S.n||[];S.h=S.h||[];S.f=S.f||[];S.v=S.v||{};S.k=S.k||{};S.x=S.x||{};save();toast('மீட்டெடுக்கப்பட்டது');vp()}catch(e){toast('தவறான தரவு')}}
+const W1=f=>function(...a){if(tab!='d'||IN)return f.apply(this,a);IN=1;[S.d,S.n]=[S.n,S.d];try{return f.apply(this,a)}finally{[S.d,S.n]=[S.n,S.d];IN=0}};
+vd=W1(vd);rg=W1(rg);eh=W1(eh);rd=W1(rd);tg=W1(tg);addDay=W1(addDay);sk=W1(sk);ssync=W1(ssync);sclr=W1(sclr);sonly=W1(sonly);lkSel=W1(lkSel);gapSel=W1(gapSel);ed=W1(ed);edsv=W1(edsv);
+if(!S.c&&S.d.length)S.c=S.d[S.d.length-1].id;
+render();
+</script></body></html>
